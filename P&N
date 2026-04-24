@@ -3,887 +3,764 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy 23rd Birthday, Prasy! 🎂</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Great+Vibes&family=Courier+Prime:ital@0;1&display=swap" rel="stylesheet">
+<title>untuk nassy, dari prasy ♡</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Dancing+Script:wght@400;600&family=DM+Mono:ital@0;1&display=swap" rel="stylesheet">
 <style>
   :root {
-    --burgundy: #6b1a2a;
-    --burgundy-dark: #4a0f1c;
-    --burgundy-light: #8b2a3a;
-    --cream: #f5ede4;
-    --cream-dark: #ede0d4;
-    --text-dark: #2a0a12;
-    --gold: #c9a96e;
+    --rose:    #c4748a;
+    --rose-dk: #9e5068;
+    --rose-lt: #e8b4c0;
+    --blush:   #f7ece9;
+    --warm:    #f0ddd5;
+    --parchment: #faf4f0;
+    --ink:     #3b2028;
+    --gold:    #c9956e;
+    --sage:    #8aab8e;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
 
   body {
-    background: var(--cream);
-    font-family: 'Cormorant Garamond', serif;
-    color: var(--text-dark);
+    background: var(--parchment);
+    font-family: 'Lora', serif;
+    color: var(--ink);
     overflow-x: hidden;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.7C5.8 16.5 2 12.8 2 8.5 2 5.4 4.5 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.8 3 16.5 3 19.5 3 22 5.4 22 8.5c0 4.3-3.8 8-10 13.2z' fill='%23c4748a' opacity='0.7'/%3E%3C/svg%3E") 12 12, auto;
   }
 
-  /* ── NOISE TEXTURE OVERLAY ── */
-  body::before {
+  /* grain overlay */
+  body::after {
     content: '';
     position: fixed;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
     pointer-events: none;
     z-index: 9999;
-    opacity: 0.5;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  /* ──────── SECTION: ENVELOPE ──────── */
-  #envelope-section {
+  /* ── LOADING SCREEN ── */
+  #loading {
+    position: fixed;
+    inset: 0;
+    background: var(--blush);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  #loading.out {
+    opacity: 0;
+    transform: scale(1.05);
+    pointer-events: none;
+  }
+
+  .loading-heart {
+    font-size: 48px;
+    animation: heartbeat 1.2s ease-in-out infinite;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14% { transform: scale(1.3); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.2); }
+    70% { transform: scale(1); }
+  }
+
+  .loading-text {
+    margin-top: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--rose);
+    text-transform: uppercase;
+    animation: dotdot 1.5s infinite;
+  }
+
+  @keyframes dotdot {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  /* ── HERO ── */
+  .hero {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: var(--cream);
     position: relative;
-    cursor: pointer;
-  }
-
-  .envelope-wrapper {
-    position: relative;
-    width: 360px;
-    height: 260px;
-    animation: float 4s ease-in-out infinite;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-14px); }
-  }
-
-  .envelope-body {
-    width: 100%;
-    height: 100%;
-    background: var(--cream-dark);
-    border-radius: 4px;
-    position: relative;
-    box-shadow: 0 20px 60px rgba(107,26,42,0.18), 0 4px 20px rgba(107,26,42,0.1);
-    overflow: hidden;
-  }
-
-  /* diagonal flap lines */
-  .envelope-body::before,
-  .envelope-body::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-  }
-
-  .envelope-body::before {
     background:
-      linear-gradient(to bottom right, transparent calc(50% - 1px), rgba(107,26,42,0.12) calc(50% - 1px), rgba(107,26,42,0.12) calc(50% + 1px), transparent calc(50% + 1px)),
-      linear-gradient(to bottom left, transparent calc(50% - 1px), rgba(107,26,42,0.12) calc(50% - 1px), rgba(107,26,42,0.12) calc(50% + 1px), transparent calc(50% + 1px));
+      radial-gradient(ellipse at 15% 20%, rgba(196,116,138,0.18) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 75%, rgba(138,171,142,0.12) 0%, transparent 45%),
+      radial-gradient(ellipse at 50% 50%, rgba(240,221,213,0.5) 0%, transparent 80%),
+      var(--parchment);
+    overflow: hidden;
+    padding: 60px 20px;
   }
 
-  .wax-seal {
+  /* floating petals */
+  .petal {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80px;
-    height: 80px;
-    z-index: 10;
-  }
-
-  .wax-seal svg { width: 100%; height: 100%; }
-
-  .envelope-hint {
-    margin-top: 32px;
-    font-family: 'Courier Prime', monospace;
-    font-size: 13px;
-    letter-spacing: 3px;
-    color: var(--burgundy);
-    opacity: 0.6;
-    text-transform: uppercase;
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 0.8; }
-  }
-
-  /* ──────── MAIN CONTENT ──────── */
-  #main {
-    display: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50% 0 50% 0;
     opacity: 0;
-    transition: opacity 0.8s ease;
+    animation: petalFall linear infinite;
   }
 
-  #main.visible {
-    display: block;
-    opacity: 1;
+  @keyframes petalFall {
+    0%   { transform: translateY(-20px) rotate(0deg);   opacity: 0; }
+    10%  { opacity: 0.6; }
+    90%  { opacity: 0.3; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
   }
 
-  /* ──────── HERO SECTION ──────── */
-  .hero {
-    min-height: 100vh;
-    background: var(--burgundy-dark);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-bg-pattern {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at 20% 50%, rgba(139,42,58,0.4) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 20%, rgba(107,26,42,0.6) 0%, transparent 50%),
-      radial-gradient(ellipse at 60% 80%, rgba(74,15,28,0.8) 0%, transparent 50%);
-  }
-
-  /* topographic lines */
-  .topo-lines {
-    position: absolute;
-    inset: 0;
-    opacity: 0.07;
-    background-image:
-      repeating-radial-gradient(ellipse at 50% 50%, transparent 0, transparent 40px, rgba(245,237,228,1) 40px, rgba(245,237,228,1) 41px);
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    padding: 40px;
-  }
-
-  .hero-subtitle {
-    font-family: 'Courier Prime', monospace;
-    font-size: 11px;
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
     letter-spacing: 5px;
-    color: var(--gold);
+    color: var(--rose);
     text-transform: uppercase;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     opacity: 0;
-    animation: fadeUp 1s 0.3s forwards;
-  }
-
-  .hero-date {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 14px;
-    font-style: italic;
-    color: rgba(245,237,228,0.5);
-    margin-bottom: 30px;
-    opacity: 0;
-    animation: fadeUp 1s 0.5s forwards;
+    animation: riseIn 1s 0.4s forwards;
   }
 
   .hero-title {
-    font-family: 'Great Vibes', cursive;
-    font-size: clamp(72px, 15vw, 140px);
-    color: var(--cream);
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(60px, 14vw, 130px);
+    color: var(--rose-dk);
     line-height: 1;
-    margin-bottom: 10px;
-    opacity: 0;
-    animation: fadeUp 1.2s 0.7s forwards;
-  }
-
-  .hero-number {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(100px, 25vw, 240px);
-    font-weight: 300;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(245,237,228,0.15);
-    position: absolute;
-    bottom: -40px;
-    left: 50%;
-    transform: translateX(-50%);
-    line-height: 1;
-    pointer-events: none;
-    white-space: nowrap;
-  }
-
-  .star-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 100px;
-    height: 100px;
-    position: relative;
-    margin: 20px auto;
-    opacity: 0;
-    animation: fadeUp 1s 1s forwards;
-  }
-
-  .star-badge svg {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0; left: 0;
-  }
-
-  .star-badge-text {
-    position: relative;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 14px;
-    font-weight: 300;
-    color: var(--burgundy-dark);
     text-align: center;
-    line-height: 1.2;
-    z-index: 1;
+    margin-bottom: 14px;
+    opacity: 0;
+    animation: riseIn 1.2s 0.7s forwards;
   }
 
-  .scroll-cue {
+  .hero-title span {
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: clamp(16px, 2.5vw, 22px);
+    color: rgba(59,32,40,0.55);
+    text-align: center;
+    margin-bottom: 60px;
+    opacity: 0;
+    animation: riseIn 1s 1s forwards;
+  }
+
+  /* big decorative ampersand */
+  .hero-deco {
     position: absolute;
-    bottom: 40px;
+    font-family: 'Dancing Script', cursive;
+    font-size: 400px;
+    color: rgba(196,116,138,0.04);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+  }
+
+  .scroll-arrow {
+    position: absolute;
+    bottom: 36px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     opacity: 0;
-    animation: fadeUp 1s 2s forwards;
+    animation: riseIn 1s 1.8s forwards;
   }
 
-  .scroll-line {
+  .arrow-line {
     width: 1px;
-    height: 60px;
-    background: linear-gradient(to bottom, rgba(245,237,228,0), rgba(245,237,228,0.4));
-    animation: scrollPulse 2s ease-in-out infinite;
+    height: 50px;
+    background: linear-gradient(to bottom, rgba(196,116,138,0), rgba(196,116,138,0.5));
+    animation: arrowPulse 2s ease-in-out infinite;
   }
 
-  @keyframes scrollPulse {
-    0% { transform: scaleY(0); transform-origin: top; }
-    50% { transform: scaleY(1); transform-origin: top; }
-    50.01% { transform: scaleY(1); transform-origin: bottom; }
-    100% { transform: scaleY(0); transform-origin: bottom; }
+  @keyframes arrowPulse {
+    0%, 100% { transform: scaleY(0.6); opacity: 0.4; }
+    50% { transform: scaleY(1); opacity: 1; }
   }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+  @keyframes riseIn {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* ──────── LETTER SECTION ──────── */
-  .letter-section {
-    background: var(--cream);
-    padding: 100px 20px;
+  /* ── LETTER CARD ── */
+  .section-wrap {
+    padding: 80px 20px;
+  }
+
+  .letter-outer {
+    max-width: 700px;
+    margin: 0 auto;
     position: relative;
   }
+
+  /* tape strip decoration */
+  .tape {
+    position: absolute;
+    width: 60px;
+    height: 22px;
+    background: rgba(196,116,138,0.2);
+    border-radius: 2px;
+    z-index: 2;
+  }
+  .tape-tl { top: -10px; left: 40px; transform: rotate(-3deg); }
+  .tape-tr { top: -10px; right: 40px; transform: rotate(3deg); }
 
   .letter-card {
-    max-width: 720px;
-    margin: 0 auto;
     background: #fff;
-    border: 1px solid rgba(107,26,42,0.12);
-    padding: 60px;
+    border: 1px solid rgba(196,116,138,0.15);
+    padding: 64px 60px;
     position: relative;
-    box-shadow: 0 30px 80px rgba(107,26,42,0.08);
+    box-shadow:
+      0 2px 0 rgba(196,116,138,0.08),
+      0 8px 30px rgba(196,116,138,0.08),
+      0 40px 80px rgba(59,32,40,0.06);
   }
 
-  /* decorative corner */
+  /* ruled lines like real paper */
   .letter-card::before {
     content: '';
     position: absolute;
-    inset: 8px;
-    border: 1px solid rgba(107,26,42,0.08);
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 31px,
+      rgba(196,116,138,0.06) 31px,
+      rgba(196,116,138,0.06) 32px
+    );
     pointer-events: none;
   }
 
-  .letter-date {
-    text-align: right;
-    font-family: 'Courier Prime', monospace;
-    font-style: italic;
-    font-size: 13px;
-    color: var(--burgundy);
+  .letter-from {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--rose);
+    text-transform: uppercase;
     margin-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0.7;
+  }
+
+  .letter-from-line {
+    flex: 1;
+    height: 1px;
+    background: rgba(196,116,138,0.2);
+    margin: 0 14px;
   }
 
   .letter-greeting {
-    font-family: 'Great Vibes', cursive;
-    font-size: 64px;
-    color: var(--burgundy);
-    margin-bottom: 40px;
+    font-family: 'Dancing Script', cursive;
+    font-size: 58px;
+    color: var(--rose-dk);
+    margin-bottom: 36px;
     line-height: 1;
   }
 
   .letter-body {
-    font-size: 18px;
-    font-weight: 300;
-    line-height: 1.9;
-    color: #3a1a20;
+    font-size: 17px;
+    line-height: 2;
+    color: #3b2028;
+    font-weight: 400;
   }
 
-  .letter-body p { margin-bottom: 24px; }
+  .letter-body p { margin-bottom: 22px; }
 
   .letter-body em {
     font-style: italic;
-    color: var(--burgundy);
+    color: var(--rose-dk);
   }
 
-  .letter-signature {
-    text-align: right;
+  .letter-body strong {
+    font-weight: 500;
+    color: var(--rose-dk);
+  }
+
+  .letter-sign {
     margin-top: 48px;
-    font-family: 'Courier Prime', monospace;
-    font-style: italic;
-    font-size: 15px;
-    color: var(--burgundy);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
   }
 
-  /* ──────── DATE SECTION ──────── */
-  .date-section {
-    background: var(--burgundy);
-    padding: 100px 20px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .date-section-bg {
-    position: absolute;
-    inset: 0;
-    background: 
-      radial-gradient(ellipse at 80% 50%, rgba(139,42,58,0.5) 0%, transparent 60%),
-      radial-gradient(ellipse at 20% 80%, rgba(74,15,28,0.7) 0%, transparent 50%);
-  }
-
-  .wavy-border {
-    position: relative;
-    max-width: 680px;
-    margin: 0 auto;
-    border: 1.5px solid rgba(245,237,228,0.25);
-    padding: 70px 60px;
-    z-index: 1;
-  }
-
-  /* bow decoration top right */
-  .bow-deco {
-    position: absolute;
-    top: -1px;
-    right: -1px;
+  .letter-sign-line {
     width: 80px;
-    height: 80px;
-    opacity: 0.6;
+    height: 1px;
+    background: rgba(196,116,138,0.3);
   }
 
-  .will-you-label {
-    font-family: 'Courier Prime', monospace;
-    font-size: 11px;
-    letter-spacing: 6px;
-    color: rgba(245,237,228,0.6);
-    text-transform: uppercase;
-    margin-bottom: 16px;
+  .letter-sign-name {
+    font-family: 'Dancing Script', cursive;
+    font-size: 36px;
+    color: var(--rose-dk);
   }
 
-  .will-you-title {
-    font-family: 'Great Vibes', cursive;
-    font-size: 80px;
-    color: var(--cream);
-    margin-bottom: 50px;
-    line-height: 1;
-  }
-
-  .checkbox-row {
-    display: flex;
-    justify-content: center;
-    gap: 48px;
-    margin-bottom: 40px;
-  }
-
-  .checkbox-item {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
-    font-style: italic;
-    color: var(--cream);
-    cursor: default;
-  }
-
-  .checkbox-box {
-    width: 32px;
-    height: 32px;
-    background: rgba(107,26,42,0.6);
-    border: 1.5px solid rgba(245,237,228,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .checkbox-box svg {
-    width: 18px;
-    height: 18px;
-    color: var(--cream);
-  }
-
-  .candle-deco {
-    display: flex;
-    justify-content: flex-start;
-    gap: 10px;
-    position: absolute;
-    bottom: 30px;
-    left: 40px;
-    opacity: 0.5;
-  }
-
-  /* ──────── ITINERARY SECTION ──────── */
-  .itinerary-section {
-    background: var(--cream);
-    padding: 100px 20px;
-  }
-
-  .section-label {
-    font-family: 'Courier Prime', monospace;
-    font-size: 10px;
-    letter-spacing: 5px;
-    color: var(--burgundy);
-    text-transform: uppercase;
-    text-align: center;
-    margin-bottom: 16px;
-    opacity: 0.6;
-  }
-
-  .section-title {
-    font-family: 'Great Vibes', cursive;
-    font-size: 72px;
-    color: var(--burgundy);
-    text-align: center;
-    margin-bottom: 70px;
-    line-height: 1;
-  }
-
-  .itinerary-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 30px;
-    max-width: 900px;
-    margin: 0 auto 50px;
-  }
-
-  .itinerary-item {
-    background: #fff;
-    border: 1px solid rgba(107,26,42,0.1);
-    padding: 40px 30px;
-    text-align: center;
-    position: relative;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .itinerary-item:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 50px rgba(107,26,42,0.12);
-  }
-
-  .itinerary-icon {
-    font-size: 40px;
-    margin-bottom: 20px;
-    display: block;
-  }
-
-  .itinerary-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 22px;
-    color: var(--burgundy);
-    line-height: 1.3;
-  }
-
-  .note-box {
-    max-width: 500px;
-    margin: 0 auto;
-    border: 1.5px solid var(--burgundy);
-    padding: 20px 30px;
-    text-align: center;
-  }
-
-  .note-box-text {
-    font-family: 'Courier Prime', monospace;
-    font-style: italic;
-    font-size: 14px;
-    color: var(--burgundy);
-    letter-spacing: 1px;
-  }
-
-  /* ──────── LETTER 2 — THANK YOU ──────── */
-  .thankyou-section {
-    background: #5c1524;
-    padding: 100px 20px;
+  /* ── MEMORY POLAROID STRIP ── */
+  .memory-section {
+    background: var(--warm);
+    padding: 80px 20px;
     position: relative;
     overflow: hidden;
   }
 
-  .thankyou-section::before {
+  .memory-section::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M0 30Q15 0 30 30T60 30' fill='none' stroke='rgba(255,255,255,0.03)' stroke-width='1'/%3E%3C/svg%3E") repeat;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(196,116,138,0.025) 40px,
+      rgba(196,116,138,0.025) 41px
+    );
   }
 
-  .thankyou-inner {
-    max-width: 720px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
+  .memory-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 5px;
+    color: var(--rose);
+    text-transform: uppercase;
     text-align: center;
+    margin-bottom: 14px;
+    opacity: 0.6;
   }
 
-  .thankyou-title {
-    font-family: 'Great Vibes', cursive;
-    font-size: 100px;
-    color: var(--cream);
-    margin-bottom: 50px;
+  .memory-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 64px;
+    color: var(--rose-dk);
+    text-align: center;
+    margin-bottom: 60px;
     line-height: 1;
   }
 
-  .thankyou-text {
-    font-size: 20px;
-    font-weight: 300;
-    line-height: 2;
-    color: rgba(245,237,228,0.85);
-    font-style: italic;
-    margin-bottom: 20px;
+  .polaroid-strip {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    flex-wrap: wrap;
+    max-width: 900px;
+    margin: 0 auto;
   }
 
-  /* ──────── CLOSING SECTION ──────── */
-  .closing-section {
-    background: var(--burgundy-dark);
-    padding: 120px 20px;
+  .polaroid {
+    background: #fff;
+    padding: 18px 18px 48px;
+    box-shadow: 0 4px 20px rgba(59,32,40,0.1), 0 1px 4px rgba(59,32,40,0.08);
+    position: relative;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: default;
+  }
+
+  .polaroid:nth-child(1) { transform: rotate(-2.5deg); }
+  .polaroid:nth-child(2) { transform: rotate(1.2deg) translateY(-10px); }
+  .polaroid:nth-child(3) { transform: rotate(-1deg); }
+
+  .polaroid:hover {
+    transform: rotate(0deg) translateY(-8px) scale(1.04) !important;
+    box-shadow: 0 20px 50px rgba(59,32,40,0.18);
+    z-index: 10;
+  }
+
+  .polaroid-img {
+    width: 200px;
+    height: 200px;
+    background: var(--blush);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .polaroid-icon {
+    font-size: 64px;
+    opacity: 0.35;
+  }
+
+  .polaroid-caption {
+    position: absolute;
+    bottom: 14px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-style: italic;
+    font-size: 11px;
+    color: rgba(59,32,40,0.5);
+    letter-spacing: 1px;
+  }
+
+  /* ── PROMISE SECTION ── */
+  .promise-section {
+    background: var(--rose-dk);
+    padding: 100px 20px;
     text-align: center;
     position: relative;
     overflow: hidden;
   }
 
-  .closing-topo {
+  .promise-bg {
     position: absolute;
     inset: 0;
-    opacity: 0.05;
-    background-image:
-      repeating-radial-gradient(ellipse at 30% 60%, transparent 0, transparent 60px, rgba(245,237,228,1) 60px, rgba(245,237,228,1) 61px),
-      repeating-radial-gradient(ellipse at 70% 40%, transparent 0, transparent 80px, rgba(245,237,228,1) 80px, rgba(245,237,228,1) 81px);
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(228,180,192,0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 70%, rgba(74,15,28,0.3) 0%, transparent 50%);
   }
 
-  .closing-quote {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: clamp(22px, 4vw, 36px);
-    color: var(--cream);
-    max-width: 600px;
-    margin: 0 auto 60px;
-    line-height: 1.7;
+  .promise-inner {
     position: relative;
     z-index: 1;
-    opacity: 0.9;
+    max-width: 640px;
+    margin: 0 auto;
   }
 
-  .closing-divider {
-    width: 60px;
-    height: 1px;
-    background: rgba(245,237,228,0.3);
-    margin: 0 auto 60px;
+  .promise-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 5px;
+    color: rgba(247,236,233,0.5);
+    text-transform: uppercase;
+    margin-bottom: 40px;
   }
 
-  .closing-hearts {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
+  .promise-list {
+    list-style: none;
+    text-align: left;
     margin-bottom: 60px;
   }
 
-  .heart-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(245,237,228,0.3);
+  .promise-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    font-size: 19px;
+    font-style: italic;
+    color: rgba(247,236,233,0.88);
+    line-height: 1.7;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(247,236,233,0.1);
   }
 
-  .heart-dot.active {
-    background: var(--gold);
-    width: 12px;
-    height: 12px;
-    margin-top: -2px;
+  .promise-list li:last-child { border-bottom: none; }
+
+  .promise-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--rose-lt);
+    opacity: 0.7;
+    min-width: 28px;
+    padding-top: 4px;
   }
 
-  .final-text {
-    font-family: 'Great Vibes', cursive;
-    font-size: 60px;
-    color: var(--gold);
+  .promise-closing {
+    font-family: 'Dancing Script', cursive;
+    font-size: 52px;
+    color: var(--blush);
+    line-height: 1.2;
+  }
+
+  /* ── FINAL CLOSING ── */
+  .final-section {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--parchment);
+    text-align: center;
+    padding: 80px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .final-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 50%, rgba(196,116,138,0.08) 0%, transparent 70%);
+  }
+
+  /* big heart outline bg */
+  .heart-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Lora', serif;
+    font-size: 500px;
+    color: rgba(196,116,138,0.04);
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+  }
+
+  .final-quote {
     position: relative;
     z-index: 1;
+    font-style: italic;
+    font-size: clamp(18px, 3vw, 28px);
+    color: rgba(59,32,40,0.6);
+    max-width: 520px;
+    line-height: 1.8;
+    margin-bottom: 50px;
   }
 
-  /* ──────── CONFETTI ──────── */
-  .confetti-piece {
-    position: fixed;
-    width: 8px;
-    height: 8px;
-    top: -20px;
-    animation: confettiFall linear forwards;
-    z-index: 10000;
-    pointer-events: none;
-    border-radius: 2px;
+  .final-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 50px;
   }
 
-  @keyframes confettiFall {
-    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  .final-divider-line {
+    width: 60px;
+    height: 1px;
+    background: rgba(196,116,138,0.3);
   }
 
-  /* ──────── RESPONSIVE ──────── */
-  @media (max-width: 600px) {
-    .letter-card { padding: 40px 28px; }
-    .hero-title { font-size: 80px; }
-    .will-you-title { font-size: 60px; }
-    .thankyou-title { font-size: 70px; }
-    .checkbox-row { flex-direction: column; align-items: center; gap: 20px; }
-    .wavy-border { padding: 50px 30px; }
-    .section-title { font-size: 56px; }
-    .letter-greeting { font-size: 48px; }
-    .envelope-wrapper { width: 300px; height: 210px; }
+  .final-divider-heart {
+    font-size: 18px;
+    color: var(--rose);
   }
 
-  /* reveal animations via IntersectionObserver */
+  .final-title {
+    position: relative;
+    z-index: 1;
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(70px, 15vw, 140px);
+    color: var(--rose-dk);
+    line-height: 1;
+    margin-bottom: 24px;
+  }
+
+  .final-sub {
+    position: relative;
+    z-index: 1;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--rose);
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+
+  /* ── REVEAL ── */
   .reveal {
     opacity: 0;
-    transform: translateY(40px);
+    transform: translateY(36px);
     transition: opacity 0.9s ease, transform 0.9s ease;
   }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
+  .reveal.up { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .letter-card { padding: 40px 28px; }
+    .letter-greeting { font-size: 42px; }
+    .polaroid-img { width: 150px; height: 150px; }
+    .promise-list li { font-size: 16px; }
   }
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════ ENVELOPE INTRO ═══════════════════ -->
-<section id="envelope-section" onclick="openEnvelope()">
-  <div class="envelope-wrapper">
-    <div class="envelope-body">
-      <div class="wax-seal">
-        <!-- Red wax heart seal -->
-        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <radialGradient id="wax" cx="40%" cy="35%" r="60%">
-              <stop offset="0%" stop-color="#c0152b"/>
-              <stop offset="60%" stop-color="#8b0a1a"/>
-              <stop offset="100%" stop-color="#5a0010"/>
-            </radialGradient>
-          </defs>
-          <ellipse cx="60" cy="62" rx="46" ry="44" fill="#5a0010" opacity="0.4"/>
-          <path d="M60 98 C60 98 18 72 18 46 C18 32 28 22 40 22 C50 22 58 30 60 35 C62 30 70 22 80 22 C92 22 102 32 102 46 C102 72 60 98 60 98Z" fill="url(#wax)"/>
-          <!-- subtle highlights -->
-          <path d="M35 38 Q42 32 50 36" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none" stroke-linecap="round"/>
-        </svg>
+<!-- loading -->
+<div id="loading">
+  <div class="loading-heart">🌸</div>
+  <p class="loading-text">sedang ditulis dengan hati...</p>
+</div>
+
+<!-- petals injected by JS -->
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-deco">♡</div>
+
+  <p class="hero-eyebrow">dari prasy · untuk nassy</p>
+  <h1 class="hero-title">makasih,<br><span>nas</span> ♡</h1>
+  <p class="hero-sub">untuk semua kata, semua cinta, semua yang kamu lakukan</p>
+
+  <div class="scroll-arrow">
+    <div class="arrow-line"></div>
+  </div>
+</section>
+
+<!-- ═══ LETTER ═══ -->
+<section class="section-wrap" style="background: var(--blush);">
+  <div class="letter-outer reveal">
+    <div class="tape tape-tl"></div>
+    <div class="tape tape-tr"></div>
+    <div class="letter-card">
+      <div class="letter-from">
+        <span>prasy</span>
+        <div class="letter-from-line"></div>
+        <span>24 · 04 · 2026</span>
+      </div>
+
+      <div class="letter-greeting">Hi Nassy,</div>
+
+      <div class="letter-body">
+        <p>aku nggak tau harus mulai dari mana — karena jujur, waktu buka cardmu, aku nggak nyangka bakal se-<em>overwhelming</em> itu rasanya. bukan lebay, tapi emang gitu adanya.</p>
+
+        <p>makasih udah inget tanggal ini, makasih udah <em>bikin sesuatu yang secantik itu</em> buat aku. kamu tau sendiri kan, aku tuh orangnya susah nunjukin betapa terharunya aku — tapi kali ini beneran, <strong>aku mau bilang makasih dengan sepenuh hati.</strong></p>
+
+        <p>kata-katamu... aku baca berulang kali. "<em>i pray that you win in life</em>" — kamu nggak tau seberapa besar artinya itu buat aku. di saat aku sendiri kadang ragu, ada kamu yang percaya dengan begitu tenangnya. itu bukan hal kecil, Nas.</p>
+
+        <p>dan "<em>let's keep growing together, no rush, just side by side</em>" — ya Allah, aku simpan itu. beneran. karena itu persis yang aku butuh dengar.</p>
+
+        <p>aku beruntung banget punya kamu. bukan cuma karena cardnya yang cantik banget (walaupun iya, cantik banget) — tapi karena kamu adalah orang yang hadir beneran. yang nggak cuma bilang, tapi nunjukin.</p>
+
+        <p>semoga Tuhan balas semua kebaikanmu. <em>semoga kamu juga selalu bahagia, selalu dikelilingi hal-hal baik, dan selalu tahu betapa berharganya kamu.</em></p>
+
+        <p>i love you too, Nas. more than I probably say out loud. 🌸</p>
+      </div>
+
+      <div class="letter-sign">
+        <div class="letter-sign-line"></div>
+        <div class="letter-sign-name">prasy ♡</div>
       </div>
     </div>
   </div>
-  <p class="envelope-hint">tap to open ↓</p>
 </section>
 
-<!-- ═══════════════════ MAIN CONTENT ═══════════════════ -->
-<div id="main">
+<!-- ═══ POLAROIDS ═══ -->
+<section class="memory-section">
+  <p class="memory-label reveal">hal-hal yang aku syukuri</p>
+  <div class="memory-title reveal">karena ada kamu</div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-bg-pattern"></div>
-    <div class="topo-lines"></div>
-    <div class="hero-content">
-      <p class="hero-subtitle">24 · 04 · 2003 → 24 · 04 · 2026</p>
-      <p class="hero-date">Twenty Fourth of April, Two Thousand Three</p>
-      <h1 class="hero-title">Happy Birthday</h1>
-      <div class="star-badge">
-        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-          <polygon points="60,8 72,45 112,45 80,68 92,108 60,84 28,108 40,68 8,45 48,45" fill="#f5ede4" opacity="0.9"/>
-        </svg>
-        <div class="star-badge-text">Happy<br><strong>23</strong></div>
+  <div class="polaroid-strip">
+    <div class="polaroid reveal">
+      <div class="polaroid-img">
+        <span class="polaroid-icon">🤝</span>
       </div>
-      <div class="hero-number">23</div>
+      <p class="polaroid-caption">selalu ada</p>
     </div>
-    <div class="scroll-cue">
-      <div class="scroll-line"></div>
+    <div class="polaroid reveal" style="transition-delay:0.15s">
+      <div class="polaroid-img">
+        <span class="polaroid-icon">💌</span>
+      </div>
+      <p class="polaroid-caption">kata-kata yang tulus</p>
     </div>
-  </section>
-
-  <!-- LETTER FROM NASSY -->
-  <section class="letter-section">
-    <div class="letter-card reveal">
-      <div class="letter-date">
-        24. 04. 2003 &nbsp;—&nbsp; Twenty Fourth of April, Two Thousand Three
+    <div class="polaroid reveal" style="transition-delay:0.3s">
+      <div class="polaroid-img">
+        <span class="polaroid-icon">🌸</span>
       </div>
-      <div class="letter-greeting">Hi Prasy,</div>
-      <div class="letter-body">
-        <p>i can't believe you're <em>23</em> right now <em>(nambah setahun jadi lebih tua lagi dari aku)</em></p>
-        <p>happy birthday my prasy! i pray that you win in life, achieve all your dreams and get everything you've ever wanted ♡ i want to see you at the top, becoming the person you've always dreamed of being, aku bakal support kamu loudly and proudly, i promise.</p>
-        <p>semoga Tuhan selalu permudah semua urusan kamu. you deserve all the good things in this world, and more. semoga kamu selalu sehat, panjang umur, dan bahagia! semoga kamu selalu dikelilingi hal-hal baik. semoga Tuhan selalu membersamai kamu.</p>
-        <p>once again, happy birthday, my beloved pras! i love you more than words can say.</p>
-      </div>
-      <div class="letter-signature">with love, <em>nassy</em></div>
+      <p class="polaroid-caption">side by side</p>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- WILL YOU BE MY DATE -->
-  <section class="date-section">
-    <div class="date-section-bg"></div>
-    <div class="wavy-border reveal">
-      <!-- bow top right -->
-      <svg class="bow-deco" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M60 10 Q80 0 78 20 Q76 40 60 40 Q44 40 40 24 Q36 8 60 10Z" stroke="rgba(245,237,228,0.6)" stroke-width="1.5" fill="none"/>
-        <path d="M60 10 Q40 0 42 20 Q44 40 60 40 Q76 40 80 24 Q84 8 60 10Z" stroke="rgba(245,237,228,0.6)" stroke-width="1.5" fill="none"/>
-        <path d="M60 40 Q60 55 55 65 M60 40 Q62 55 68 65" stroke="rgba(245,237,228,0.4)" stroke-width="1.2" fill="none"/>
-        <circle cx="60" cy="40" r="4" fill="rgba(245,237,228,0.5)"/>
-      </svg>
+<!-- ═══ PROMISE BACK ═══ -->
+<section class="promise-section">
+  <div class="promise-bg"></div>
+  <div class="promise-inner reveal">
+    <p class="promise-label">janji balik dari prasy</p>
 
-      <p class="will-you-label">Will You Be My</p>
-      <div class="will-you-title">Date?</div>
+    <ul class="promise-list">
+      <li>
+        <span class="promise-num">01</span>
+        aku juga akan selalu ada buat kamu — loudly and proudly, seperti yang kamu bilang ke aku.
+      </li>
+      <li>
+        <span class="promise-num">02</span>
+        aku akan tumbuh bareng kamu, pelan-pelan, tanpa terburu-buru — side by side.
+      </li>
+      <li>
+        <span class="promise-num">03</span>
+        aku akan selalu percaya kamu juga bisa, seperti kamu percaya ke aku.
+      </li>
+      <li>
+        <span class="promise-num">04</span>
+        aku nggak akan lupa betapa berharganya persahabatan ini. tidak pernah.
+      </li>
+    </ul>
 
-      <div class="checkbox-row">
-        <div class="checkbox-item">
-          <div class="checkbox-box">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
-          </div>
-          yes
-        </div>
-        <div class="checkbox-item">
-          <div class="checkbox-box">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
-          </div>
-          ofc yess!
-        </div>
-      </div>
-
-      <!-- candle illustration -->
-      <div class="candle-deco">
-        <svg width="40" height="80" viewBox="0 0 40 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="14" y="25" width="12" height="45" rx="2" stroke="rgba(245,237,228,0.5)" stroke-width="1.5"/>
-          <ellipse cx="20" cy="70" rx="8" ry="3" stroke="rgba(245,237,228,0.3)" stroke-width="1"/>
-          <path d="M20 25 Q17 18 20 12 Q23 18 20 25Z" fill="rgba(245,237,228,0.5)"/>
-          <path d="M16 70 Q10 72 8 76 Q14 74 20 76" stroke="rgba(245,237,228,0.2)" stroke-width="1" fill="none"/>
-        </svg>
-        <svg width="32" height="68" viewBox="0 0 32 68" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-top:12px">
-          <rect x="11" y="20" width="10" height="38" rx="2" stroke="rgba(245,237,228,0.5)" stroke-width="1.5"/>
-          <ellipse cx="16" cy="58" rx="6" ry="2.5" stroke="rgba(245,237,228,0.3)" stroke-width="1"/>
-          <path d="M16 20 Q13 14 16 9 Q19 14 16 20Z" fill="rgba(245,237,228,0.5)"/>
-        </svg>
-      </div>
+    <div class="promise-closing">
+      sama-sama ya, Nas ♡
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ITINERARY -->
-  <section class="itinerary-section">
-    <p class="section-label">The Plan</p>
-    <div class="section-title">What are we gonna do?</div>
+<!-- ═══ FINAL ═══ -->
+<section class="final-section">
+  <div class="final-bg"></div>
+  <div class="heart-bg">♡</div>
 
-    <div class="itinerary-grid">
-      <div class="itinerary-item reveal">
-        <span class="itinerary-icon">🚗</span>
-        <p class="itinerary-name">pick up your<br>princess!</p>
-      </div>
-      <div class="itinerary-item reveal" style="transition-delay:0.1s">
-        <span class="itinerary-icon">🍽️</span>
-        <p class="itinerary-name">birthday<br>dinner</p>
-      </div>
-      <div class="itinerary-item reveal" style="transition-delay:0.2s">
-        <span class="itinerary-icon">📸</span>
-        <p class="itinerary-name">take lots of<br>pictures!</p>
-      </div>
-      <div class="itinerary-item reveal" style="transition-delay:0.3s">
-        <span class="itinerary-icon">🎁</span>
-        <p class="itinerary-name">gift reveal ♡</p>
-      </div>
-    </div>
+  <p class="final-quote reveal">
+    "kamu bukan cuma teman yang baik —<br>
+    kamu adalah alasan aku percaya<br>
+    bahwa hal-hal indah itu nyata."
+  </p>
 
-    <div class="note-box reveal">
-      <p class="note-box-text">note: wear your best black look for dinner!</p>
-    </div>
-  </section>
+  <div class="final-divider reveal">
+    <div class="final-divider-line"></div>
+    <div class="final-divider-heart">♡</div>
+    <div class="final-divider-line"></div>
+  </div>
 
-  <!-- THANK YOU LETTER -->
-  <section class="thankyou-section">
-    <div class="thankyou-inner reveal">
-      <div class="thankyou-title">thank you, pras,</div>
-      <p class="thankyou-text">thank you for being you. thank you for staying and being part of my life.</p>
-      <p class="thankyou-text">i'm so grateful for you.. remember that you always have me. i'll always be here for you, believing in you, standing beside you, and always being proud of you.</p>
-      <p class="thankyou-text">i hope this new age brings you so much happiness, so much love, and everything you've been wishing for.</p>
-      <p class="thankyou-text" style="font-size:24px; margin-top:30px;">i love you, so much.</p>
-    </div>
-  </section>
-
-  <!-- CLOSING -->
-  <section class="closing-section">
-    <div class="closing-topo"></div>
-    <p class="closing-quote reveal">
-      "let's keep growing together,<br>no rush, just side by side."
-    </p>
-    <div class="closing-divider"></div>
-    <div class="closing-hearts">
-      <div class="heart-dot"></div>
-      <div class="heart-dot active"></div>
-      <div class="heart-dot"></div>
-    </div>
-    <div class="final-text reveal">thank you ♡</div>
-  </section>
-
-</div><!-- end #main -->
+  <div class="final-title reveal">thank you,<br>nassy</div>
+  <p class="final-sub reveal">dengan cinta · dari prasy · 2026</p>
+</section>
 
 <script>
-  // ── Open envelope ──
-  function openEnvelope() {
-    const env = document.getElementById('envelope-section');
-    env.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    env.style.opacity = '0';
-    env.style.transform = 'scale(0.95)';
+  // ── loading screen ──
+  window.addEventListener('load', () => {
     setTimeout(() => {
-      env.style.display = 'none';
-      const main = document.getElementById('main');
-      main.style.display = 'block';
-      requestAnimationFrame(() => {
-        main.style.opacity = '1';
-      });
-      launchConfetti();
-    }, 600);
-  }
+      document.getElementById('loading').classList.add('out');
+      setTimeout(() => document.getElementById('loading').remove(), 900);
+    }, 1400);
+  });
 
-  // ── Confetti ──
-  function launchConfetti() {
-    const colors = ['#6b1a2a','#c9a96e','#f5ede4','#8b2a3a','#d4a574','#fff'];
-    for (let i = 0; i < 80; i++) {
-      setTimeout(() => {
-        const piece = document.createElement('div');
-        piece.className = 'confetti-piece';
-        piece.style.left = Math.random() * 100 + 'vw';
-        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
-        piece.style.width = (6 + Math.random() * 8) + 'px';
-        piece.style.height = (6 + Math.random() * 8) + 'px';
-        piece.style.animationDuration = (2 + Math.random() * 3) + 's';
-        piece.style.animationDelay = Math.random() * 1 + 's';
-        piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-        document.body.appendChild(piece);
-        setTimeout(() => piece.remove(), 5000);
-      }, i * 30);
-    }
+  // ── floating petals ──
+  const colors = ['#e8b4c0','#c4748a','#f7ece9','#8aab8e','#c9956e'];
+  function spawnPetal() {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.top = '-20px';
+    p.style.background = colors[Math.floor(Math.random() * colors.length)];
+    p.style.width  = (8 + Math.random() * 10) + 'px';
+    p.style.height = (8 + Math.random() * 10) + 'px';
+    p.style.animationDuration = (8 + Math.random() * 10) + 's';
+    p.style.animationDelay    = (Math.random() * 4) + 's';
+    p.style.transform = `rotate(${Math.random()*360}deg)`;
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 22000);
   }
+  setInterval(spawnPetal, 600);
+  for (let i = 0; i < 6; i++) spawnPetal();
 
-  // ── Scroll reveal ──
-  const observer = new IntersectionObserver((entries) => {
+  // ── scroll reveal ──
+  const observer = new IntersectionObserver(entries => {
     entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-      }
+      if (e.isIntersecting) e.target.classList.add('up');
     });
   }, { threshold: 0.1 });
-
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 </body>
