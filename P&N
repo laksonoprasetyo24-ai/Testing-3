@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy 23rd Birthday, Prasy! 🎂</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Great+Vibes&family=Courier+Prime:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --burgundy: #6b1a2a;
+    --burgundy-dark: #4a0f1c;
+    --burgundy-light: #8b2a3a;
+    --cream: #f5ede4;
+    --cream-dark: #ede0d4;
+    --text-dark: #2a0a12;
+    --gold: #c9a96e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.5;
+  }
+
+  /* ──────── SECTION: ENVELOPE ──────── */
+  #envelope-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--cream);
+    position: relative;
+    cursor: pointer;
+  }
+
+  .envelope-wrapper {
+    position: relative;
+    width: 360px;
+    height: 260px;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-14px); }
+  }
+
+  .envelope-body {
+    width: 100%;
+    height: 100%;
+    background: var(--cream-dark);
+    border-radius: 4px;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(107,26,42,0.18), 0 4px 20px rgba(107,26,42,0.1);
+    overflow: hidden;
+  }
+
+  /* diagonal flap lines */
+  .envelope-body::before,
+  .envelope-body::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .envelope-body::before {
+    background:
+      linear-gradient(to bottom right, transparent calc(50% - 1px), rgba(107,26,42,0.12) calc(50% - 1px), rgba(107,26,42,0.12) calc(50% + 1px), transparent calc(50% + 1px)),
+      linear-gradient(to bottom left, transparent calc(50% - 1px), rgba(107,26,42,0.12) calc(50% - 1px), rgba(107,26,42,0.12) calc(50% + 1px), transparent calc(50% + 1px));
+  }
+
+  .wax-seal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    z-index: 10;
+  }
+
+  .wax-seal svg { width: 100%; height: 100%; }
+
+  .envelope-hint {
+    margin-top: 32px;
+    font-family: 'Courier Prime', monospace;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--burgundy);
+    opacity: 0.6;
+    text-transform: uppercase;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+  }
+
+  /* ──────── MAIN CONTENT ──────── */
+  #main {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+
+  #main.visible {
+    display: block;
+    opacity: 1;
+  }
+
+  /* ──────── HERO SECTION ──────── */
+  .hero {
+    min-height: 100vh;
+    background: var(--burgundy-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-pattern {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(139,42,58,0.4) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(107,26,42,0.6) 0%, transparent 50%),
+      radial-gradient(ellipse at 60% 80%, rgba(74,15,28,0.8) 0%, transparent 50%);
+  }
+
+  /* topographic lines */
+  .topo-lines {
+    position: absolute;
+    inset: 0;
+    opacity: 0.07;
+    background-image:
+      repeating-radial-gradient(ellipse at 50% 50%, transparent 0, transparent 40px, rgba(245,237,228,1) 40px, rgba(245,237,228,1) 41px);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 40px;
+  }
+
+  .hero-subtitle {
+    font-family: 'Courier Prime', monospace;
+    font-size: 11px;
+    letter-spacing: 5px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 1s 0.3s forwards;
+  }
+
+  .hero-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    font-style: italic;
+    color: rgba(245,237,228,0.5);
+    margin-bottom: 30px;
+    opacity: 0;
+    animation: fadeUp 1s 0.5s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(72px, 15vw, 140px);
+    color: var(--cream);
+    line-height: 1;
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: fadeUp 1.2s 0.7s forwards;
+  }
+
+  .hero-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(100px, 25vw, 240px);
+    font-weight: 300;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(245,237,228,0.15);
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    line-height: 1;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .star-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    margin: 20px auto;
+    opacity: 0;
+    animation: fadeUp 1s 1s forwards;
+  }
+
+  .star-badge svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0; left: 0;
+  }
+
+  .star-badge-text {
+    position: relative;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--burgundy-dark);
+    text-align: center;
+    line-height: 1.2;
+    z-index: 1;
+  }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 1s 2s forwards;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, rgba(245,237,228,0), rgba(245,237,228,0.4));
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    50.01% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ──────── LETTER SECTION ──────── */
+  .letter-section {
+    background: var(--cream);
+    padding: 100px 20px;
+    position: relative;
+  }
+
+  .letter-card {
+    max-width: 720px;
+    margin: 0 auto;
+    background: #fff;
+    border: 1px solid rgba(107,26,42,0.12);
+    padding: 60px;
+    position: relative;
+    box-shadow: 0 30px 80px rgba(107,26,42,0.08);
+  }
+
+  /* decorative corner */
+  .letter-card::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(107,26,42,0.08);
+    pointer-events: none;
+  }
+
+  .letter-date {
+    text-align: right;
+    font-family: 'Courier Prime', monospace;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--burgundy);
+    margin-bottom: 40px;
+  }
+
+  .letter-greeting {
+    font-family: 'Great Vibes', cursive;
+    font-size: 64px;
+    color: var(--burgundy);
+    margin-bottom: 40px;
+    line-height: 1;
+  }
+
+  .letter-body {
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.9;
+    color: #3a1a20;
+  }
+
+  .letter-body p { margin-bottom: 24px; }
+
+  .letter-body em {
+    font-style: italic;
+    color: var(--burgundy);
+  }
+
+  .letter-signature {
+    text-align: right;
+    margin-top: 48px;
+    font-family: 'Courier Prime', monospace;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--burgundy);
+  }
+
+  /* ──────── DATE SECTION ──────── */
+  .date-section {
+    background: var(--burgundy);
+    padding: 100px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .date-section-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse at 80% 50%, rgba(139,42,58,0.5) 0%, transparent 60%),
+      radial-gradient(ellipse at 20% 80%, rgba(74,15,28,0.7) 0%, transparent 50%);
+  }
+
+  .wavy-border {
+    position: relative;
+    max-width: 680px;
+    margin: 0 auto;
+    border: 1.5px solid rgba(245,237,228,0.25);
+    padding: 70px 60px;
+    z-index: 1;
+  }
+
+  /* bow decoration top right */
+  .bow-deco {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    width: 80px;
+    height: 80px;
+    opacity: 0.6;
+  }
+
+  .will-you-label {
+    font-family: 'Courier Prime', monospace;
+    font-size: 11px;
+    letter-spacing: 6px;
+    color: rgba(245,237,228,0.6);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .will-you-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 80px;
+    color: var(--cream);
+    margin-bottom: 50px;
+    line-height: 1;
+  }
+
+  .checkbox-row {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-bottom: 40px;
+  }
+
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--cream);
+    cursor: default;
+  }
+
+  .checkbox-box {
+    width: 32px;
+    height: 32px;
+    background: rgba(107,26,42,0.6);
+    border: 1.5px solid rgba(245,237,228,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .checkbox-box svg {
+    width: 18px;
+    height: 18px;
+    color: var(--cream);
+  }
+
+  .candle-deco {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    position: absolute;
+    bottom: 30px;
+    left: 40px;
+    opacity: 0.5;
+  }
+
+  /* ──────── ITINERARY SECTION ──────── */
+  .itinerary-section {
+    background: var(--cream);
+    padding: 100px 20px;
+  }
+
+  .section-label {
+    font-family: 'Courier Prime', monospace;
+    font-size: 10px;
+    letter-spacing: 5px;
+    color: var(--burgundy);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 16px;
+    opacity: 0.6;
+  }
+
+  .section-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 72px;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 70px;
+    line-height: 1;
+  }
+
+  .itinerary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+    max-width: 900px;
+    margin: 0 auto 50px;
+  }
+
+  .itinerary-item {
+    background: #fff;
+    border: 1px solid rgba(107,26,42,0.1);
+    padding: 40px 30px;
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .itinerary-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(107,26,42,0.12);
+  }
+
+  .itinerary-icon {
+    font-size: 40px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .itinerary-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--burgundy);
+    line-height: 1.3;
+  }
+
+  .note-box {
+    max-width: 500px;
+    margin: 0 auto;
+    border: 1.5px solid var(--burgundy);
+    padding: 20px 30px;
+    text-align: center;
+  }
+
+  .note-box-text {
+    font-family: 'Courier Prime', monospace;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--burgundy);
+    letter-spacing: 1px;
+  }
+
+  /* ──────── LETTER 2 — THANK YOU ──────── */
+  .thankyou-section {
+    background: #5c1524;
+    padding: 100px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .thankyou-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M0 30Q15 0 30 30T60 30' fill='none' stroke='rgba(255,255,255,0.03)' stroke-width='1'/%3E%3C/svg%3E") repeat;
+  }
+
+  .thankyou-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .thankyou-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 100px;
+    color: var(--cream);
+    margin-bottom: 50px;
+    line-height: 1;
+  }
+
+  .thankyou-text {
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 2;
+    color: rgba(245,237,228,0.85);
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+
+  /* ──────── CLOSING SECTION ──────── */
+  .closing-section {
+    background: var(--burgundy-dark);
+    padding: 120px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .closing-topo {
+    position: absolute;
+    inset: 0;
+    opacity: 0.05;
+    background-image:
+      repeating-radial-gradient(ellipse at 30% 60%, transparent 0, transparent 60px, rgba(245,237,228,1) 60px, rgba(245,237,228,1) 61px),
+      repeating-radial-gradient(ellipse at 70% 40%, transparent 0, transparent 80px, rgba(245,237,228,1) 80px, rgba(245,237,228,1) 81px);
+  }
+
+  .closing-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(22px, 4vw, 36px);
+    color: var(--cream);
+    max-width: 600px;
+    margin: 0 auto 60px;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+    opacity: 0.9;
+  }
+
+  .closing-divider {
+    width: 60px;
+    height: 1px;
+    background: rgba(245,237,228,0.3);
+    margin: 0 auto 60px;
+  }
+
+  .closing-hearts {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 60px;
+  }
+
+  .heart-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(245,237,228,0.3);
+  }
+
+  .heart-dot.active {
+    background: var(--gold);
+    width: 12px;
+    height: 12px;
+    margin-top: -2px;
+  }
+
+  .final-text {
+    font-family: 'Great Vibes', cursive;
+    font-size: 60px;
+    color: var(--gold);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ──────── CONFETTI ──────── */
+  .confetti-piece {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    top: -20px;
+    animation: confettiFall linear forwards;
+    z-index: 10000;
+    pointer-events: none;
+    border-radius: 2px;
+  }
+
+  @keyframes confettiFall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* ──────── RESPONSIVE ──────── */
+  @media (max-width: 600px) {
+    .letter-card { padding: 40px 28px; }
+    .hero-title { font-size: 80px; }
+    .will-you-title { font-size: 60px; }
+    .thankyou-title { font-size: 70px; }
+    .checkbox-row { flex-direction: column; align-items: center; gap: 20px; }
+    .wavy-border { padding: 50px 30px; }
+    .section-title { font-size: 56px; }
+    .letter-greeting { font-size: 48px; }
+    .envelope-wrapper { width: 300px; height: 210px; }
+  }
+
+  /* reveal animations via IntersectionObserver */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ ENVELOPE INTRO ═══════════════════ -->
+<section id="envelope-section" onclick="openEnvelope()">
+  <div class="envelope-wrapper">
+    <div class="envelope-body">
+      <div class="wax-seal">
+        <!-- Red wax heart seal -->
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="wax" cx="40%" cy="35%" r="60%">
+              <stop offset="0%" stop-color="#c0152b"/>
+              <stop offset="60%" stop-color="#8b0a1a"/>
+              <stop offset="100%" stop-color="#5a0010"/>
+            </radialGradient>
+          </defs>
+          <ellipse cx="60" cy="62" rx="46" ry="44" fill="#5a0010" opacity="0.4"/>
+          <path d="M60 98 C60 98 18 72 18 46 C18 32 28 22 40 22 C50 22 58 30 60 35 C62 30 70 22 80 22 C92 22 102 32 102 46 C102 72 60 98 60 98Z" fill="url(#wax)"/>
+          <!-- subtle highlights -->
+          <path d="M35 38 Q42 32 50 36" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <p class="envelope-hint">tap to open ↓</p>
+</section>
+
+<!-- ═══════════════════ MAIN CONTENT ═══════════════════ -->
+<div id="main">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-pattern"></div>
+    <div class="topo-lines"></div>
+    <div class="hero-content">
+      <p class="hero-subtitle">24 · 04 · 2003 → 24 · 04 · 2026</p>
+      <p class="hero-date">Twenty Fourth of April, Two Thousand Three</p>
+      <h1 class="hero-title">Happy Birthday</h1>
+      <div class="star-badge">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="60,8 72,45 112,45 80,68 92,108 60,84 28,108 40,68 8,45 48,45" fill="#f5ede4" opacity="0.9"/>
+        </svg>
+        <div class="star-badge-text">Happy<br><strong>23</strong></div>
+      </div>
+      <div class="hero-number">23</div>
+    </div>
+    <div class="scroll-cue">
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- LETTER FROM NASSY -->
+  <section class="letter-section">
+    <div class="letter-card reveal">
+      <div class="letter-date">
+        24. 04. 2003 &nbsp;—&nbsp; Twenty Fourth of April, Two Thousand Three
+      </div>
+      <div class="letter-greeting">Hi Prasy,</div>
+      <div class="letter-body">
+        <p>i can't believe you're <em>23</em> right now <em>(nambah setahun jadi lebih tua lagi dari aku)</em></p>
+        <p>happy birthday my prasy! i pray that you win in life, achieve all your dreams and get everything you've ever wanted ♡ i want to see you at the top, becoming the person you've always dreamed of being, aku bakal support kamu loudly and proudly, i promise.</p>
+        <p>semoga Tuhan selalu permudah semua urusan kamu. you deserve all the good things in this world, and more. semoga kamu selalu sehat, panjang umur, dan bahagia! semoga kamu selalu dikelilingi hal-hal baik. semoga Tuhan selalu membersamai kamu.</p>
+        <p>once again, happy birthday, my beloved pras! i love you more than words can say.</p>
+      </div>
+      <div class="letter-signature">with love, <em>nassy</em></div>
+    </div>
+  </section>
+
+  <!-- WILL YOU BE MY DATE -->
+  <section class="date-section">
+    <div class="date-section-bg"></div>
+    <div class="wavy-border reveal">
+      <!-- bow top right -->
+      <svg class="bow-deco" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M60 10 Q80 0 78 20 Q76 40 60 40 Q44 40 40 24 Q36 8 60 10Z" stroke="rgba(245,237,228,0.6)" stroke-width="1.5" fill="none"/>
+        <path d="M60 10 Q40 0 42 20 Q44 40 60 40 Q76 40 80 24 Q84 8 60 10Z" stroke="rgba(245,237,228,0.6)" stroke-width="1.5" fill="none"/>
+        <path d="M60 40 Q60 55 55 65 M60 40 Q62 55 68 65" stroke="rgba(245,237,228,0.4)" stroke-width="1.2" fill="none"/>
+        <circle cx="60" cy="40" r="4" fill="rgba(245,237,228,0.5)"/>
+      </svg>
+
+      <p class="will-you-label">Will You Be My</p>
+      <div class="will-you-title">Date?</div>
+
+      <div class="checkbox-row">
+        <div class="checkbox-item">
+          <div class="checkbox-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          yes
+        </div>
+        <div class="checkbox-item">
+          <div class="checkbox-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          ofc yess!
+        </div>
+      </div>
+
+      <!-- candle illustration -->
+      <div class="candle-deco">
+        <svg width="40" height="80" viewBox="0 0 40 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="14" y="25" width="12" height="45" rx="2" stroke="rgba(245,237,228,0.5)" stroke-width="1.5"/>
+          <ellipse cx="20" cy="70" rx="8" ry="3" stroke="rgba(245,237,228,0.3)" stroke-width="1"/>
+          <path d="M20 25 Q17 18 20 12 Q23 18 20 25Z" fill="rgba(245,237,228,0.5)"/>
+          <path d="M16 70 Q10 72 8 76 Q14 74 20 76" stroke="rgba(245,237,228,0.2)" stroke-width="1" fill="none"/>
+        </svg>
+        <svg width="32" height="68" viewBox="0 0 32 68" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-top:12px">
+          <rect x="11" y="20" width="10" height="38" rx="2" stroke="rgba(245,237,228,0.5)" stroke-width="1.5"/>
+          <ellipse cx="16" cy="58" rx="6" ry="2.5" stroke="rgba(245,237,228,0.3)" stroke-width="1"/>
+          <path d="M16 20 Q13 14 16 9 Q19 14 16 20Z" fill="rgba(245,237,228,0.5)"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ITINERARY -->
+  <section class="itinerary-section">
+    <p class="section-label">The Plan</p>
+    <div class="section-title">What are we gonna do?</div>
+
+    <div class="itinerary-grid">
+      <div class="itinerary-item reveal">
+        <span class="itinerary-icon">🚗</span>
+        <p class="itinerary-name">pick up your<br>princess!</p>
+      </div>
+      <div class="itinerary-item reveal" style="transition-delay:0.1s">
+        <span class="itinerary-icon">🍽️</span>
+        <p class="itinerary-name">birthday<br>dinner</p>
+      </div>
+      <div class="itinerary-item reveal" style="transition-delay:0.2s">
+        <span class="itinerary-icon">📸</span>
+        <p class="itinerary-name">take lots of<br>pictures!</p>
+      </div>
+      <div class="itinerary-item reveal" style="transition-delay:0.3s">
+        <span class="itinerary-icon">🎁</span>
+        <p class="itinerary-name">gift reveal ♡</p>
+      </div>
+    </div>
+
+    <div class="note-box reveal">
+      <p class="note-box-text">note: wear your best black look for dinner!</p>
+    </div>
+  </section>
+
+  <!-- THANK YOU LETTER -->
+  <section class="thankyou-section">
+    <div class="thankyou-inner reveal">
+      <div class="thankyou-title">thank you, pras,</div>
+      <p class="thankyou-text">thank you for being you. thank you for staying and being part of my life.</p>
+      <p class="thankyou-text">i'm so grateful for you.. remember that you always have me. i'll always be here for you, believing in you, standing beside you, and always being proud of you.</p>
+      <p class="thankyou-text">i hope this new age brings you so much happiness, so much love, and everything you've been wishing for.</p>
+      <p class="thankyou-text" style="font-size:24px; margin-top:30px;">i love you, so much.</p>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <section class="closing-section">
+    <div class="closing-topo"></div>
+    <p class="closing-quote reveal">
+      "let's keep growing together,<br>no rush, just side by side."
+    </p>
+    <div class="closing-divider"></div>
+    <div class="closing-hearts">
+      <div class="heart-dot"></div>
+      <div class="heart-dot active"></div>
+      <div class="heart-dot"></div>
+    </div>
+    <div class="final-text reveal">thank you ♡</div>
+  </section>
+
+</div><!-- end #main -->
+
+<script>
+  // ── Open envelope ──
+  function openEnvelope() {
+    const env = document.getElementById('envelope-section');
+    env.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    env.style.opacity = '0';
+    env.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      env.style.display = 'none';
+      const main = document.getElementById('main');
+      main.style.display = 'block';
+      requestAnimationFrame(() => {
+        main.style.opacity = '1';
+      });
+      launchConfetti();
+    }, 600);
+  }
+
+  // ── Confetti ──
+  function launchConfetti() {
+    const colors = ['#6b1a2a','#c9a96e','#f5ede4','#8b2a3a','#d4a574','#fff'];
+    for (let i = 0; i < 80; i++) {
+      setTimeout(() => {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.left = Math.random() * 100 + 'vw';
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.width = (6 + Math.random() * 8) + 'px';
+        piece.style.height = (6 + Math.random() * 8) + 'px';
+        piece.style.animationDuration = (2 + Math.random() * 3) + 's';
+        piece.style.animationDelay = Math.random() * 1 + 's';
+        piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), 5000);
+      }, i * 30);
+    }
+  }
+
+  // ── Scroll reveal ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
