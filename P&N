@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>untuk sayang, dari pras ♡</title>
+<title>untuk nassy, dari prasy ♡</title>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Dancing+Script:wght@400;600&family=DM+Mono:ital@0;1&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -601,8 +601,8 @@
 <section class="hero">
   <div class="hero-deco">♡</div>
 
-  <p class="hero-eyebrow">dari pras · untuk sayang</p>
-  <h1 class="hero-title">makasih,<br><span>sayang</span> ♡</h1>
+  <p class="hero-eyebrow">dari prasy · untuk nassy</p>
+  <h1 class="hero-title">makasih,<br><span>nassy</span> ♡</h1>
   <p class="hero-sub">untuk semua kata, semua cinta, semua yang kamu lakukan</p>
 
   <div class="scroll-arrow">
@@ -617,19 +617,19 @@
     <div class="tape tape-tr"></div>
     <div class="letter-card">
       <div class="letter-from">
-        <span>pras</span>
+        <span>prasy</span>
         <div class="letter-from-line"></div>
         <span>24 · 04 · 2026</span>
       </div>
 
-      <div class="letter-greeting">Hi sayang,</div>
+      <div class="letter-greeting">Hi Nassy,</div>
 
       <div class="letter-body">
         <p>aku nggak tau harus mulai dari mana — karena jujur, waktu buka cardmu, aku nggak nyangka bakal se-<em>overwhelming</em> itu rasanya. bukan lebay, tapi emang gitu adanya.</p>
 
         <p>makasih udah inget tanggal ini, makasih udah <em>bikin sesuatu yang secantik itu</em> buat aku. kamu tau sendiri kan, aku tuh orangnya susah nunjukin betapa terharunya aku — tapi kali ini beneran, <strong>aku mau bilang makasih dengan sepenuh hati.</strong></p>
 
-        <p>kata-katamu... aku baca berulang kali. "<em>i prasy that you win in life</em>" — kamu nggak tau seberapa besar artinya itu buat aku. di saat aku sendiri kadang ragu, ada kamu yang percaya dengan begitu tenangnya. itu bukan hal kecil, sayang.</p>
+        <p>kata-katamu... aku baca berulang kali. "<em>i pray that you win in life</em>" — kamu nggak tau seberapa besar artinya itu buat aku. di saat aku sendiri kadang ragu, ada kamu yang percaya dengan begitu tenangnya. itu bukan hal kecil, Nas.</p>
 
         <p>dan "<em>let's keep growing together, no rush, just side by side</em>" — ya Allah, aku simpan itu. beneran. karena itu persis yang aku butuh dengar.</p>
 
@@ -637,12 +637,12 @@
 
         <p>semoga Tuhan balas semua kebaikanmu. <em>semoga kamu juga selalu bahagia, selalu dikelilingi hal-hal baik, dan selalu tahu betapa berharganya kamu.</em></p>
 
-        <p>i love you too, sayang. more than I probably say out loud. 🌸</p>
+        <p>i love you too, Nasya. more than I probably say out loud. 🌸</p>
       </div>
 
       <div class="letter-sign">
         <div class="letter-sign-line"></div>
-        <div class="letter-sign-name">pras ♡</div>
+        <div class="letter-sign-name">prasy ♡</div>
       </div>
     </div>
   </div>
@@ -650,7 +650,7 @@
 
 <!-- ═══ POLAROIDS ═══ -->
 <section class="memory-section">
-  <p class="memory-label reveal">hal-hal yang aku ukuri</p>
+  <p class="memory-label reveal">hal-hal yang aku syukuri</p>
   <div class="memory-title reveal">karena ada kamu</div>
 
   <div class="polaroid-strip">
@@ -679,7 +679,7 @@
 <section class="promise-section">
   <div class="promise-bg"></div>
   <div class="promise-inner reveal">
-    <p class="promise-label">janji balik dari pras</p>
+    <p class="promise-label">janji balik dari prasy</p>
 
     <ul class="promise-list">
       <li>
@@ -696,12 +696,12 @@
       </li>
       <li>
         <span class="promise-num">04</span>
-        aku nggak akan lupa betapa berharganya persahabatan ini. tidak pernah.
+        aku nggak akan lupa betapa berharganya ucapan kamu. tidak pernah.
       </li>
     </ul>
 
     <div class="promise-closing">
-      sama-sama ya, sayang ♡
+      ♡
     </div>
   </div>
 </section>
@@ -712,7 +712,7 @@
   <div class="heart-bg">♡</div>
 
   <p class="final-quote reveal">
-    "kamu bukan cuma teman yang baik —<br>
+    "kamu bukan cuma pasangan yang baik —<br>
     kamu adalah alasan aku percaya<br>
     bahwa hal-hal indah itu nyata."
   </p>
@@ -723,8 +723,8 @@
     <div class="final-divider-line"></div>
   </div>
 
-  <div class="final-title reveal">thank you,<br>sayang</div>
-  <p class="final-sub reveal">dengan cinta · dari pras · 2026</p>
+  <div class="final-title reveal">thank you,<br>nassy</div>
+  <p class="final-sub reveal">dengan cinta · dari prasy · 2026</p>
 </section>
 
 <script>
